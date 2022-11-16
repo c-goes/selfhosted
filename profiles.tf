@@ -9,6 +9,11 @@ resource "lxd_profile" "podmanlxdzfs" {
         package_upgrade: true
         locale: de_DE.UTF-8
         timezone: Europe/Berlin
+        packages:
+            - python3-pip
+            - git
+        runcmd:
+            - pip3 install ansible
         ansible:
             install_method: pip
             pull:
