@@ -9,10 +9,11 @@ resource "lxd_profile" "podman_lxd_zfs" {
         packages:
         - podman
         - fuse-overlayfs
+        - python3-pip
         locale: de_DE.UTF-8
         timezone: Europe/Berlin
         runcmd:
-        - [touch, /tmp/simos_was_here]
+        - [pip3, install, podman-compose]
         write_files:
             path: /etc/containers/storage.conf
             content: |
