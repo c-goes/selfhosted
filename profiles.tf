@@ -30,7 +30,6 @@ EOT
     name = "eth0"
 
     properties = {
-      name = "eth0"
       network = "lxdbr0"
     }
   }
