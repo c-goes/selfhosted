@@ -5,25 +5,15 @@ resource "lxd_profile" "podman_lxd_zfs" {
     "security.nesting" = "true"
     "user.user-data": <<-EOT
         #cloud-config
+        package_update: true
         package_upgrade: true
-        packages:
-        - podman
-        - fuse-overlayfs
-        - python3-pip
         locale: de_DE.UTF-8
         timezone: Europe/Berlin
-        runcmd:
-        - [pip3, install, podman-compose]
-        write_files:
-            path: /etc/containers/storage.conf
-            content: |
-                [storage]
-                driver = "overlay"
-                runroot = "/run/containers/storage"
-                graphroot = "/var/lib/containers/storage"
-
-                [storage.options]
-                mount_program = "/usr/bin/fuse-overlayfs"
+        ansible:
+            install_method: pip
+            pull:
+                url: "https://github.com/c-goes/selfhosted.git"
+                playbook_name: playbooks/lxd_container_nesting_basic.yml
 EOT
   }
   device {
