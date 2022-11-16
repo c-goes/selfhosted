@@ -1,5 +1,5 @@
-resource "lxd_profile" "podman_lxd_zfs" {
-  name = "podman_lxd_zfs"
+resource "lxd_profile" "podmanlxdzfs" {
+  name = "podmanlxdzfs"
 
   config = {
     "security.nesting" = "true"
