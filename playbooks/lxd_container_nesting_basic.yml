@@ -2,6 +2,25 @@
 - name: Basic configuration for containers running Podman nested in LXD.
   hosts: localhost
   tasks:
+
+    - name: Install packages
+      apt:
+        name:
+          - podman
+          - buildah
+          - skopeo
+          - slirp4netns
+          - fuse-overlayfs
+          - python3-pip
+          - git
+        update_cache: yes
+
+    - name: Install podman-compose
+      pip:
+        name: https://github.com/containers/podman-compose/archive/devel.tar.gz
+        executable: pip3
+        state: latest
+      become: yes
     - name: Enable Unattended Reboot
       lineinfile:
         path: /etc/apt/apt.conf.d/50unattended-upgrades
@@ -42,22 +61,3 @@
           mount_program = "/usr/bin/fuse-overlayfs"
         dest: /etc/containers/storage.conf
         backup: yes
-
-    - name: Install packages
-      apt:
-        name:
-          - podman
-          - buildah
-          - skopeo
-          - slirp4netns
-          - fuse-overlayfs
-          - python3-pip
-          - git
-        update_cache: yes
-
-    - name: Install podman-compose
-      pip:
-        name: https://github.com/containers/podman-compose/archive/devel.tar.gz
-        executable: pip3
-        state: latest
-      become: yes

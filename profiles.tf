@@ -14,11 +14,7 @@ resource "lxd_profile" "podmanlxdzfs" {
             - git
         runcmd:
             - pip3 install ansible
-        ansible:
-            install_method: pip
-            pull:
-                url: "https://github.com/c-goes/selfhosted.git"
-                playbook_name: playbooks/lxd_container_nesting_basic.yml
+            - ansible-pull -U https://github.com/c-goes/selfhosted.git playbooks/lxd_container_nesting_basic.yml
 EOT
   }
   device {
